@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Registration</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f6f8f5;
+    }
+
+    .container {
+      width: 350px;
+      margin: 50px auto;
+      background: #ffffff94;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    input.error {
+      border-color: red;
+    }
+
+    .error-msg {
+      color: red;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 20px;
+      background: #2fdaed;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d55c4;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>User Registration</h2>
+
+    <form id="form">
+      <label for="name">Full Name</label>
+      <input type="text" id="name">
+      <div class="error-msg" id="nameError"></div>
+
+      <label for="email">Email Address</label>
+      <input type="text" id="email">
+      <div class="error-msg" id="emailError"></div>
+
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone">
+      <div class="error-msg" id="phoneError"></div>
+
+      <label for="password">Password</label>
+      <input type="password" id="password">
+      <div class="error-msg" id="passwordError"></div>
+
+      <button type="submit">Register</button>
+
+      <div class="footer">
+        <p><strong>Name:</strong> Aryan Sapkale</p>
+        <p><strong>PRN:</strong> 1272251029</p>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      let valid = true;
+
+      // Inputs
+      const name = document.getElementById("name");
+      const email = document.getElementById("email");
+      const phone = document.getElementById("phone");
+      const password = document.getElementById("password");
+
+      const nameError = document.getElementById("nameError");
+      const emailError = document.getElementById("emailError");
+      const phoneError = document.getElementById("phoneError");
+      const passwordError = document.getElementById("passwordError");
+
+      // Reset previous errors
+      document.querySelectorAll("input").forEach(i =>
+        i.classList.remove("error")
+      );
+
+      document.querySelectorAll(".error-msg").forEach(e =>
+        e.innerText = ""
+      );
+
+      // Name Validation
+      if (!/^[A-Za-z]+(?:\s[A-Za-z]+)+$/.test(name.value.trim())) {
+        name.classList.add("error");
+        nameError.innerText =
+          "Enter a valid name (letters and spaces only).";
+        valid = false;
+      }
+
+      // Email Validation
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
+        email.classList.add("error");
+        emailError.innerText =
+          "Enter a valid email address (e.g. user@domain.com).";
+        valid = false;
+      }
+
+      // Phone Validation
+      if (!/^\d{10}$/.test(phone.value.trim())) {
+        phone.classList.add("error");
+        phoneError.innerText =
+          "Must be a valid 10-digit numeric value.";
+        valid = false;
+      }
+
+      // Password Validation
+      if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password.value)) {
+        password.classList.add("error");
+        passwordError.innerText =
+          "Min 8 characters, with at least 1 uppercase, 1 lowercase, and 1 number.";
+        valid = false;
+      }
+
+      // Registration Result
+      if (valid) {
+        alert("Registration Successful!");
+      }
+    });
+  </script>
+</body>
+</html>
